@@ -2,11 +2,11 @@ package com.hexagonal.infrastructure.persistence.product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.Statement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
+import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.hexagonal.domain.entity.Product;
 import com.hexagonal.domain.repository.ProductRepository;
@@ -14,16 +14,14 @@ import com.hexagonal.infrastructure.database.ConnectionDb;
 
 public class ProductRepositoryImpl implements ProductRepository {
     private final ConnectionDb connection;
-
     public ProductRepositoryImpl(ConnectionDb connection) {
         this.connection = connection;
     }
-
     @Override
     public void guardar(Product product) {
         String sql = "INSERT INTO product (id, name, stock) VALUES (?, ?, ?)";
         try (Connection conexion = connection.getConexion();
-                PreparedStatement stmt = conexion.prepareStatement(sql)) {
+             PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setString(1, product.getId());
             stmt.setString(2, product.getName());
             stmt.setInt(3, product.getStock());
@@ -32,6 +30,7 @@ public class ProductRepositoryImpl implements ProductRepository {
             e.printStackTrace();
         }
     }
+
 
     @Override
     public Product buscarPorId(int id) {

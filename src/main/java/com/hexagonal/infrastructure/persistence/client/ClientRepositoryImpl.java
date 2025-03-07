@@ -9,86 +9,85 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.hexagonal.domain.entity.Client;
-import com.hexagonal.domain.repository.ClientRepository;
+import com.hexagonal.domain.repository.ClientRespository;
 import com.hexagonal.infrastructure.database.ConnectionDb;
 
-public class ClientRepositoryImpl implements ClientRepository {
+public class ClientRepositoryImpl implements ClientRespository {
     private final ConnectionDb connection;
-
+    
     public ClientRepositoryImpl(ConnectionDb connection) {
         this.connection = connection;
     }
-
     @Override
-    public void save(Client client) {
+    public void guardar(Client cliente) {
         String sql = "INSERT INTO client (id, name, email) VALUES (?, ?, ?)";
-        try (Connection conn = connection.getConexion();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setInt(1, client.getId());
-            stmt.setString(2, client.getName());
-            stmt.setString(3, client.getEmail());
+        try (Connection conexion = connection.getConexion();
+             PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setInt(1, cliente.getId());
+            stmt.setString(2, cliente.getName());
+            stmt.setString(3, cliente.getEmail());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error saving client", e);
+            e.printStackTrace();
         }
     }
 
     @Override
-    public Client findById(int id) {
+    public Client buscarPorId(int id) {
         String sql = "SELECT * FROM client WHERE id = ?";
-        try (Connection conn = connection.getConexion();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conexion = connection.getConexion();
+             PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setInt(1, id);
-            try (ResultSet rs = stmt.executeQuery()) {
-                if (rs.next()) {
-                    return new Client(rs.getInt("id"), rs.getString("name"), rs.getString("email"));
-                }
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                return new Client(rs.getInt("id"), rs.getString("name"), rs.getString("email"));
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error finding client by id", e);
+            e.printStackTrace();
         }
         return null;
     }
 
     @Override
-    public List<Client> findAll() {
-        List<Client> clients = new ArrayList<>();
+    public List<Client> listarTodos() {
+        List<Client> client = new ArrayList<>();
         String sql = "SELECT * FROM client";
-        try (Connection conn = connection.getConexion();
-            Statement stmt = conn.createStatement();
-            ResultSet rs = stmt.executeQuery(sql)) {
+        try (Connection conexion = connection.getConexion();
+             Statement stmt = conexion.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
-                clients.add(new Client(rs.getInt("id"), rs.getString("name"), rs.getString("email")));
+                client.add(new Client(rs.getInt("id"), rs.getString("name"), rs.getString("email")));
             }
         } catch (SQLException e) {
-            throw new RuntimeException("Error finding all clients", e);
+            e.printStackTrace();
         }
-        return clients;
+        return client;
     }
 
     @Override
-    public void update(Client client) {
+    public void actualizar(Client cliente) {
         String sql = "UPDATE client SET name = ?, email = ? WHERE id = ?";
-        try (Connection conn = connection.getConexion();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
-            stmt.setString(1, client.getName());
-            stmt.setString(2, client.getEmail());
-            stmt.setInt(3, client.getId());
+        try (Connection conexion = connection.getConexion();
+             PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            stmt.setString(1, cliente.getName());
+            stmt.setString(2, cliente.getEmail());
+            stmt.setInt(3, cliente.getId());
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error updating client", e);
+            e.printStackTrace();
         }
     }
 
     @Override
-    public void delete(int id) {
+    public void eliminar(int id) {
         String sql = "DELETE FROM client WHERE id = ?";
-        try (Connection conn = connection.getConexion();
-            PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conexion = connection.getConexion();
+             PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
-            throw new RuntimeException("Error deleting client", e);
+            e.printStackTrace();
         }
     }
+
 }

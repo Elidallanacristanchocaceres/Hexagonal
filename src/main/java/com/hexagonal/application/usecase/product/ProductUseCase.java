@@ -36,4 +36,3 @@ public class ProductUseCase {
         repository.eliminar(id);
     }
 }
-
