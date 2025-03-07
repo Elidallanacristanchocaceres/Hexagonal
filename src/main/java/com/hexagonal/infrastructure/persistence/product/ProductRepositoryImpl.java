@@ -34,7 +34,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public Product buscarPorId(int id) {
-        // TODO Auto-generated method stub
         String sql = "SELECT * FROM product WHERE id = ?";
         try (Connection conexion = connection.getConexion();
                 PreparedStatement stmt = conexion.prepareStatement(sql)) {
@@ -51,7 +50,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public List<Product> listarTodos() {
-        // TODO Auto-generated method stub
         String sql = "SELECT * FROM product";
         List<Product> products = new ArrayList<>();
         try (Connection conexion = connection.getConexion();
@@ -68,7 +66,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void actualizar(Product product) {
-    // TODO Auto-generated method stub
     String sql = "UPDATE product SET name = ?, stock = ? WHERE id = ?";
     try (Connection conexion = connection.getConexion();
         PreparedStatement stmt = conexion.prepareStatement(sql)) {
@@ -83,7 +80,6 @@ public class ProductRepositoryImpl implements ProductRepository {
 
     @Override
     public void eliminar(int id) {
-    // TODO Auto-generated method stub
     String sql = "DELETE FROM product WHERE id = ?";
     try (Connection conexion = connection.getConexion();
         PreparedStatement stmt = conexion.prepareStatement(sql)) {
