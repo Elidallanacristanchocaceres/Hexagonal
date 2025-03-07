@@ -26,7 +26,6 @@ public class ClientRepositoryImpl implements ClientRespository {
             stmt.setInt(1, cliente.getId());
             stmt.setString(2, cliente.getName());
             stmt.setString(3, cliente.getEmail());
-            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
