@@ -21,7 +21,7 @@ public class ProductRepositoryImpl implements ProductRepository {
     public void guardar(Product product) {
         String sql = "INSERT INTO product (id, name, stock) VALUES (?, ?, ?)";
         try (Connection conexion = connection.getConexion();
-             PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setString(1, product.getId());
             stmt.setString(2, product.getName());
             stmt.setInt(3, product.getStock());

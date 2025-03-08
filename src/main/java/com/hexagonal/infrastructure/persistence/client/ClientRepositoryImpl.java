@@ -22,7 +22,7 @@ public class ClientRepositoryImpl implements ClientRespository {
     public void guardar(Client cliente) {
         String sql = "INSERT INTO client (id, name, email) VALUES (?, ?, ?)";
         try (Connection conexion = connection.getConexion();
-             PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setInt(1, cliente.getId());
             stmt.setString(2, cliente.getName());
             stmt.setString(3, cliente.getEmail());
@@ -35,7 +35,7 @@ public class ClientRepositoryImpl implements ClientRespository {
     public Client buscarPorId(int id) {
         String sql = "SELECT * FROM client WHERE id = ?";
         try (Connection conexion = connection.getConexion();
-             PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setInt(1, id);
             ResultSet rs = stmt.executeQuery();
             if (rs.next()) {
@@ -52,8 +52,8 @@ public class ClientRepositoryImpl implements ClientRespository {
         List<Client> client = new ArrayList<>();
         String sql = "SELECT * FROM client";
         try (Connection conexion = connection.getConexion();
-             Statement stmt = conexion.createStatement();
-             ResultSet rs = stmt.executeQuery(sql)) {
+            Statement stmt = conexion.createStatement();
+            ResultSet rs = stmt.executeQuery(sql)) {
             while (rs.next()) {
                 client.add(new Client(rs.getInt("id"), rs.getString("name"), rs.getString("email")));
             }
@@ -67,7 +67,7 @@ public class ClientRepositoryImpl implements ClientRespository {
     public void actualizar(Client cliente) {
         String sql = "UPDATE client SET name = ?, email = ? WHERE id = ?";
         try (Connection conexion = connection.getConexion();
-             PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setString(1, cliente.getName());
             stmt.setString(2, cliente.getEmail());
             stmt.setInt(3, cliente.getId());
@@ -81,7 +81,7 @@ public class ClientRepositoryImpl implements ClientRespository {
     public void eliminar(int id) {
         String sql = "DELETE FROM client WHERE id = ?";
         try (Connection conexion = connection.getConexion();
-             PreparedStatement stmt = conexion.prepareStatement(sql)) {
+            PreparedStatement stmt = conexion.prepareStatement(sql)) {
             stmt.setInt(1, id);
             stmt.executeUpdate();
         } catch (SQLException e) {
