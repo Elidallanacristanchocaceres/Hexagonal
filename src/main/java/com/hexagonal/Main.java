@@ -5,7 +5,7 @@ import java.util.Scanner;
 import com.hexagonal.application.usecase.client.ClientUseCase;
 import com.hexagonal.domain.repository.ClientRespository;
 import com.hexagonal.infrastructure.database.ConnectionFactory;
-import com.hexagonal.domain.entity.Client; // Update this to the correct package
+import com.hexagonal.domain.entity.Client; 
 
 import com.hexagonal.infrastructure.persistence.client.ClientRepositoryImpl;
 
@@ -25,13 +25,13 @@ public class Main {
                 System.out.println("0. Salir");
                 System.out.print("Seleccione una opción: ");
                 opcion = sc.nextInt();
-                sc.nextLine(); // Consumir la nueva línea
+                sc.nextLine(); 
 
                 switch (opcion) {
                     case 1:
                         System.out.print("Ingrese ID del Cliente: ");
                         int id = sc.nextInt();
-                        sc.nextLine(); // Consumir la nueva línea
+                        sc.nextLine(); 
                         System.out.print("Ingrese Nombre: ");
                         String nombre = sc.nextLine();
                         System.out.print("Ingrese Email: ");
@@ -58,7 +58,7 @@ public class Main {
                     case 4:
                         System.out.print("Ingrese ID del Cliente a actualizar: ");
                         int idActualizar = sc.nextInt();
-                        sc.nextLine(); // Consumir la nueva línea
+                        sc.nextLine(); 
                         System.out.print("Ingrese nuevo Nombre: ");
                         String nuevoNombre = sc.nextLine();
                         System.out.print("Ingrese nuevo Email: ");
@@ -69,7 +69,7 @@ public class Main {
                     case 5:
                         System.out.print("Ingrese ID del Cliente a eliminar: ");
                         int idEliminar = sc.nextInt();
-                        sc.nextLine(); // Consumir la nueva línea
+                        sc.nextLine(); 
                         clienteCasoUso.eliminarCliente(idEliminar);
                         System.out.println("✅ Cliente eliminado exitosamente.");
                         break;
