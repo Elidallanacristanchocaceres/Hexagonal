@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.hexagonal.domain.entity.Client;
 import com.hexagonal.domain.repository.ClientRespository;
 import com.hexagonal.infrastructure.database.ConnectionDb;
@@ -26,6 +27,7 @@ public class ClientRepositoryImpl implements ClientRespository {
             stmt.setInt(1, cliente.getId());
             stmt.setString(2, cliente.getName());
             stmt.setString(3, cliente.getEmail());
+            stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
