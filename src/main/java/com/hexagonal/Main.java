@@ -58,7 +58,7 @@ public class Main {
             System.out.println("3. Listar Todos los Clientes");
             System.out.println("4. Actualizar Cliente");
             System.out.println("5. Eliminar Cliente");
-            System.out.println("6. Volver al Menú Principal");
+            System.out.println("0. Volver al Menú Principal");
             System.out.print("Seleccione una opción: ");
             opcion = sc.nextInt();
             sc.nextLine(); 
@@ -76,7 +76,7 @@ public class Main {
                         clienteCasoUso.registrarCliente(id, nombre, email);
                         System.out.println("✅ Cliente registrado exitosamente.");
                     }else {
-                        System.out.println("Error");
+                        System.out.println("El correo debe llevar un '@' ");
                     }
                    
                     break;
@@ -114,7 +114,7 @@ public class Main {
                             EmailNuevo = sc.nextLine();
                             if (!EmailNuevo.contains("@")) {
                                 System.out.println(
-                                        "El email ingresado no es válido. Debe contener '@'. Intente nuevamente.");
+                                        "El correo debe llevar un '@' ");
                             }
                         } while (!EmailNuevo.contains("@"));
 
@@ -142,7 +142,7 @@ public class Main {
                     }
                     break;
 
-                case 6:
+                case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     break;
                 default:
@@ -161,7 +161,7 @@ public class Main {
             System.out.println("3. Listar Todos los Productos");
             System.out.println("4. Actualizar Producto");
             System.out.println("5. Eliminar Producto");
-            System.out.println("6. Volver al Menú Principal");
+            System.out.println("0. Volver al Menú Principal");
             System.out.print("Seleccione una opción: ");
             opcion = sc.nextInt();
             sc.nextLine(); 
@@ -240,7 +240,7 @@ public class Main {
                     }
                     break;
                     
-                case 6:
+                case 0:
                     System.out.println("Volviendo al Menú Principal...");
                     break;
                 default:
