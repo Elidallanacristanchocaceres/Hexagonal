@@ -46,7 +46,7 @@ public class Main {
                         break;
                 }
             } while (opcionPrincipal != 0);
-        }
+        } catch(Exception e){System.out.println("Error al poner signos");}
     }
 
     private static void menuClientes(Scanner sc, ClientUseCase clienteCasoUso) {
@@ -72,9 +72,15 @@ public class Main {
                     String nombre = sc.nextLine();
                     System.out.print("Ingrese Email: ");
                     String email = sc.nextLine();
-                    clienteCasoUso.registrarCliente(id, nombre, email);
-                    System.out.println("✅ Cliente registrado exitosamente.");
+                    if (email.contains("@")) {
+                        clienteCasoUso.registrarCliente(id, nombre, email);
+                        System.out.println("✅ Cliente registrado exitosamente.");
+                    }else {
+                        System.out.println("Error");
+                    }
+                   
                     break;
+
                 case 2:
                     System.out.print("Ingrese ID del Cliente a buscar: ");
                     int idBuscar = sc.nextInt();
@@ -86,29 +92,56 @@ public class Main {
                         System.out.println("❌ Cliente no encontrado.");
                     }
                     break;
+
                 case 3:
                     System.out.println("Listado de Clientes:");
                     clienteCasoUso.listarClientes().forEach(c -> 
                         System.out.println(c.getId() + " - " + c.getName() + " - " + c.getEmail()));
                     break;
-                case 4:
-                    System.out.print("Ingrese ID del Cliente a actualizar: ");
-                    int idActualizar = sc.nextInt();
-                    sc.nextLine(); 
-                    System.out.print("Ingrese nuevo Nombre: ");
-                    String nuevoNombre = sc.nextLine();
-                    System.out.print("Ingrese nuevo Email: ");
-                    String nuevoEmail = sc.nextLine();
-                    clienteCasoUso.actualizarCliente(idActualizar, nuevoNombre, nuevoEmail);
-                    System.out.println("✅ Cliente actualizado exitosamente.");
+
+                    case 4:
+                    System.out.print("Ingrese el ID del cliente que deseas actualizar: ");
+                    int idNuevo = sc.nextInt();
+                    sc.nextLine();
+
+                    if (clienteCasoUso.obtenerCliente(idNuevo) != null) {
+                        System.out.print("Ingrese el nuevo nombre para el cliente: ");
+                        String NombreNuevo = sc.nextLine();
+
+                        String EmailNuevo;
+                        do {
+                            System.out.print("Ingrese el nuevo email del cliente: ");
+                            EmailNuevo = sc.nextLine();
+                            if (!EmailNuevo.contains("@")) {
+                                System.out.println(
+                                        "El email ingresado no es válido. Debe contener '@'. Intente nuevamente.");
+                            }
+                        } while (!EmailNuevo.contains("@"));
+
+                        System.out.println("");
+
+                        clienteCasoUso.actualizarCliente(idNuevo, NombreNuevo, EmailNuevo);
+                        System.out.println("Cliente actualizado correctamente:");
+                        clienteCasoUso.obtenerCliente(idNuevo);
+                    } else {
+                        System.out.println("El cliente con ID " + idNuevo + " no existe.");
+                    }
                     break;
+                        
                 case 5:
                     System.out.print("Ingrese ID del Cliente a eliminar: ");
                     int idEliminar = sc.nextInt();
                     sc.nextLine(); 
-                    clienteCasoUso.eliminarCliente(idEliminar);
-                    System.out.println("✅ Cliente eliminado exitosamente.");
+                    // Verificar si el cliente existe antes de eliminar
+                    Client clienteAEliminar = clienteCasoUso.obtenerCliente(idEliminar);
+                    if (clienteAEliminar != null) {
+                        clienteCasoUso.eliminarCliente(idEliminar);
+                        System.out.println("✅ Cliente eliminado exitosamente.");
+                    } else {
+                        System.out.println("❌ Cliente no encontrado. No se puede eliminar.");
+                    }
                     break;
+
                 case 6:
                     System.out.println("Volviendo al Menú Principal...");
                     break;
@@ -146,6 +179,7 @@ public class Main {
                     productoCasoUso.registrarproducto(id, nombre, Stock);
                     System.out.println("✅ Producto registrado exitosamente.");
                     break;
+
                 case 2:
                     System.out.print("Ingrese ID del Producto a buscar: ");
                     int idBuscar = sc.nextInt();
@@ -157,31 +191,56 @@ public class Main {
                         System.out.println("❌ Producto no encontrado.");
                     }
                     break;
+
                 case 3:
                     System.out.println("Listado de Productos:");
                     productoCasoUso.listarproductos().forEach(p -> 
                         System.out.println(p.getId() + " - " + p.getName() + " - " + p.getStock()));
                     break;
-                case 4:
-                    System.out.print("Ingrese ID del Producto a actualizar: ");
-                    int idActualizar = sc.nextInt();
-                    sc.nextLine(); 
-                    System.out.print("Ingrese nuevo Nombre: ");
-                    String nuevoNombre = sc.nextLine();
-                    System.out.print("Ingrese nuevo Stock: ");
-                    double nuevoStock = sc.nextDouble();
-                    sc.nextLine(); 
-                    productoCasoUso.actualizarproducto(idActualizar, nuevoNombre, nuevoStock);
-                    System.out.println("✅ Producto actualizado exitosamente.");
+
+                    case 4:
+                    System.out.print("Ingrese el ID del producto que deseas actualizar: ");
+                    int idNuevoProducto = sc.nextInt();
+                    sc.nextLine();
+
+                    if (productoCasoUso.obtenerproducto(idNuevoProducto) != null) {
+                        System.out.print("Ingresa el nuevo nombre del producto: ");
+                        String NombreProducto = sc.nextLine();
+                        System.out.print("Ingresa el nuevo stock del producto: ");
+                        int StockNuevo = sc.nextInt();
+                        sc.nextLine();
+                        System.out.println("");
+
+                        System.out.println("Información anterior: ");
+                        productoCasoUso.obtenerproducto(idNuevoProducto);
+
+                        productoCasoUso.actualizarproducto(idNuevoProducto, NombreProducto, StockNuevo);
+                        System.out.println("");
+
+                        System.out.println("Información actualizada: ");
+                        productoCasoUso.obtenerproducto(idNuevoProducto);
+                        System.out.println("");
+                    } else {
+                        System.out.println("El producto con ID " + idNuevoProducto + " no existe.");
+                    }
+                    
                     break;
+
                 case 5:
                     System.out.print("Ingrese ID del Producto a eliminar: ");
                     int idEliminar = sc.nextInt();
                     sc.nextLine(); 
-                    productoCasoUso.eliminarproducto(idEliminar);
-                    System.out.println("✅ Producto eliminado exitosamente.");
+                    // Verificar si el producto existe antes de eliminar
+                    Product productoAEliminar = productoCasoUso.obtenerproducto(idEliminar);
+                    if (productoAEliminar != null) {
+                        productoCasoUso.eliminarproducto(idEliminar);
+                        System.out.println("✅ Producto eliminado exitosamente.");
+                    } else {
+                        System.out.println("❌ Producto no encontrado. No se puede eliminar.");
+                    }
                     break;
-                case 0:
+                    
+                case 6:
                     System.out.println("Volviendo al Menú Principal...");
                     break;
                 default:

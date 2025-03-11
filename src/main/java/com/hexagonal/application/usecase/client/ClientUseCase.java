@@ -6,31 +6,36 @@ import com.hexagonal.domain.entity.Client;
 import com.hexagonal.domain.repository.ClientRespository;
 
 public class ClientUseCase {
-    private final ClientRespository repository;
-
-    public ClientUseCase(ClientRespository repository) {
-        this.repository = repository;
-    }
-
-    public void registrarCliente(int id, String nombre, String email) {
-        Client cliente = new Client(id, nombre, email);
-        repository.guardar(cliente);
-    }
-
-    public Client obtenerCliente(int id) {
-        return repository.buscarPorId(id);
+    private static ClientRespository repository;
+        
+            public ClientUseCase(ClientRespository repository) {
+                ClientUseCase.repository = repository;
+        }
+    
+        public void registrarCliente(int id, String nombre, String email) {
+            Client cliente = new Client(id, nombre, email);
+            repository.guardar(cliente);
+        }
+    
+        public static Client obtenerCliente(int id) {
+            return repository.buscarPorId(id);
     }
 
     public List<Client> listarClientes() {
         return repository.listarTodos();
     }
 
-    public void actualizarCliente(int id, String nombre, String email) {
-        Client cliente = new Client(id, nombre, email);
+    public void actualizarCliente(int id, String nombre, String nuevoEmail) {
+        Client cliente = new Client(id, nombre, nuevoEmail);
         repository.actualizar(cliente);
     }
 
     public void eliminarCliente(int id) {
         repository.eliminar(id);
+    }
+
+    public boolean ClientUseCase(int idActualizar) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'ClientUseCase'");
     }
 }

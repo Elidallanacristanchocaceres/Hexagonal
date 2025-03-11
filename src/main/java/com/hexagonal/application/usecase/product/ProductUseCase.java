@@ -36,8 +36,5 @@ public class ProductUseCase {
         repository.eliminar(id);
     }
 
-    public void actualizarproducto(int idActualizar, String nuevoNombre, double nuevoStock) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'actualizarproducto'");
-    }
+    
 }
