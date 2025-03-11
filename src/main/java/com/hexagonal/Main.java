@@ -72,11 +72,11 @@ public class Main {
                     String nombre = sc.nextLine();
                     System.out.print("Ingrese Email: ");
                     String email = sc.nextLine();
-                    if (email.contains("@")) {
+                    if (email.contains("@gmail.com")) {
                         clienteCasoUso.registrarCliente(id, nombre, email);
                         System.out.println("✅ Cliente registrado exitosamente.");
                     }else {
-                        System.out.println("El correo debe llevar un '@' ");
+                        System.out.println("El correo debe llevar un '@gmail.com' ");
                     }
                    
                     break;
@@ -112,9 +112,9 @@ public class Main {
                         do {
                             System.out.print("Ingrese el nuevo email del cliente: ");
                             EmailNuevo = sc.nextLine();
-                            if (!EmailNuevo.contains("@")) {
+                            if (!EmailNuevo.contains("@gmail.com")) {
                                 System.out.println(
-                                        "El correo debe llevar un '@' ");
+                                        "El correo debe llevar un '@gmail.com' ");
                             }
                         } while (!EmailNuevo.contains("@"));
 
